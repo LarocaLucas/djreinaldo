@@ -1,14 +1,3 @@
-// Cursor
-const cursor = document.getElementById('cursor');
-if (window.matchMedia('(pointer: fine)').matches) {
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top  = e.clientY + 'px';
-  });
-} else {
-  cursor.style.display = 'none';
-}
-
 // Nav scroll
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -20,7 +9,7 @@ const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver(entries => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      setTimeout(() => entry.target.classList.add('visible'), i * 100);
       observer.unobserve(entry.target);
     }
   });
@@ -31,16 +20,19 @@ reveals.forEach(el => observer.observe(el));
 const navToggle = document.getElementById('navToggle');
 const navLinks  = document.querySelector('.nav-links');
 navToggle.addEventListener('click', () => {
-  navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-  navLinks.style.flexDirection = 'column';
-  navLinks.style.position = 'absolute';
-  navLinks.style.top = '100%';
-  navLinks.style.left = '0';
-  navLinks.style.right = '0';
-  navLinks.style.background = 'rgba(8,8,8,0.98)';
-  navLinks.style.padding = '1.5rem';
-  navLinks.style.borderBottom = '1px solid rgba(201,168,76,0.15)';
+  const open = navLinks.style.display === 'flex';
+  navLinks.style.display = open ? 'none' : 'flex';
+  if (!open) {
+    Object.assign(navLinks.style, {
+      flexDirection: 'column',
+      position: 'absolute',
+      top: '100%', left: '0', right: '0',
+      background: 'rgba(28,28,30,0.98)',
+      padding: '1.5rem 1.5rem 2rem',
+      borderBottom: '1px solid rgba(200,169,110,0.12)'
+    });
+  }
 });
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', () => { navLinks.style.display = 'none'; });
+document.querySelectorAll('.nav-link').forEach(l => {
+  l.addEventListener('click', () => { navLinks.style.display = 'none'; });
 });
