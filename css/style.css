@@ -76,6 +76,12 @@ nav.scrolled {
   background: linear-gradient(180deg, transparent, var(--gold), transparent);
   opacity: 0.2;
 }
+.hero-logo {
+  width: 320px; height: auto;
+  filter: brightness(0) invert(1);
+  margin-bottom: 2.5rem;
+  display: block;
+}
 .hero-tag {
   display: inline-flex; align-items: center; gap: 0.8rem;
   font-size: 0.6rem; letter-spacing: 4px;
@@ -86,7 +92,7 @@ nav.scrolled {
   content: ''; display: block;
   width: 30px; height: 1px; background: var(--gold);
 }
-.hero-name { margin-bottom: 2.5rem; line-height: 1; }
+.hero-name { display: none; }
 .hero-name .dj {
   display: block;
   font-family: 'DM Sans', sans-serif;
