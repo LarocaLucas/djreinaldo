@@ -152,18 +152,21 @@ nav.scrolled {
   background: var(--grafite2);
   overflow: hidden;
 }
-.hero-right::before {
+.hero-photo {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(15%);
+}
+.hero-right::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(200,169,110,0.05) 0%, transparent 60%);
+  background: linear-gradient(to right, var(--grafite) 0%, transparent 15%),
+              linear-gradient(to top, var(--grafite) 0%, transparent 30%);
+  z-index: 1;
 }
-.hero-placeholder {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 1rem;
-  color: var(--gold); opacity: 0.2;
-}
-.hero-placeholder p { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
+.hero-stats { z-index: 2; }
 .hero-stats {
   position: absolute; bottom: 3rem; left: 3rem;
   display: flex; gap: 1.5rem; z-index: 2;
