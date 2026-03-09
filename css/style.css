@@ -242,7 +242,7 @@ nav.scrolled {
 }
 .estilos-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1px; background: var(--border);
 }
 .estilo-item {
@@ -383,7 +383,7 @@ footer {
   .sobre-sidebar { padding: 4rem 1.5rem 2rem; }
   .sobre-content { padding: 3rem 1.5rem; }
   #estilos { padding: 5rem 1.5rem; }
-  .estilos-grid { grid-template-columns: 1fr 1fr; }
+  .estilos-grid { grid-template-columns: 1fr 1fr 1fr; }
   #galeria { padding: 5rem 1.5rem; }
   #contato { grid-template-columns: 1fr; }
   .contato-left { padding: 5rem 1.5rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
@@ -393,6 +393,6 @@ footer {
   .whatsapp-float { padding: 1rem; }
 }
 @media (max-width: 480px) {
-  .estilos-grid { grid-template-columns: 1fr; }
+  .estilos-grid { grid-template-columns: 1fr 1fr; }
   .hero-actions { flex-direction: column; align-items: flex-start; }
 }
