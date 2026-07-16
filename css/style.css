@@ -91,7 +91,11 @@ nav.scrolled {
   content: ''; display: block;
   width: 30px; height: 1px; background: var(--gold);
 }
-.hero-name { display: none; }
+.hero-name {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0,0,0,0); border: 0;
+}
 .hero-name .dj {
   display: block;
   font-family: 'DM Sans', sans-serif;
@@ -392,6 +396,7 @@ footer {
   opacity: 0.3;
 }
 .footer-copy { font-size: 0.6rem; letter-spacing: 2px; color: var(--muted); }
+.footer-dev-wrap { font-size: 0.6rem; letter-spacing: 2px; color: var(--muted); margin-top: 0.5rem; }
 .footer-dev {
   color: var(--gold); text-decoration: none;
   opacity: 0.6; transition: opacity 0.3s;
