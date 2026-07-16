@@ -62,7 +62,6 @@ nav.scrolled {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  overflow: hidden;
 }
 .hero-left {
   display: flex; flex-direction: column; justify-content: center;
@@ -381,10 +380,10 @@ nav.scrolled {
 
 /* FOOTER */
 footer {
-  padding: 2rem 5rem;
-  padding-bottom: 5rem;
+  padding: 2rem 5rem 5rem;
   border-top: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 0.5rem;
 }
 .footer-logo { display: flex; align-items: center; }
 .footer-logo-img {
@@ -413,6 +412,7 @@ footer {
     grid-template-columns: 1fr;
     position: relative;
     min-height: 100vh;
+    overflow: hidden;
   }
   .hero-left {
     padding: 7rem 1.5rem 3rem;
@@ -429,14 +429,15 @@ footer {
   }
   .hero-left::after { display: none; }
   .hero-right {
-    position: absolute;
+    position: absolute !important;
     top: 0; left: 0; right: 0; bottom: 0;
-    display: block;
+    display: block !important;
     z-index: 1;
     overflow: hidden;
+    grid-row: 1; grid-column: 1;
   }
   .hero-right::after {
-    background: none;
+    background: none !important;
   }
   .hero-photo {
     position: absolute;
@@ -444,7 +445,9 @@ footer {
     width: 100%; height: 100%;
     object-fit: cover;
     object-position: center top;
+    filter: grayscale(30%) brightness(0.7);
   }
+  .hero-stats { display: none; }
   #sobre { grid-template-columns: 1fr; }
   .sobre-sidebar { padding: 4rem 1.5rem 2rem; }
   .sobre-content { padding: 3rem 1.5rem; }
