@@ -392,6 +392,11 @@ footer {
   opacity: 0.3;
 }
 .footer-copy { font-size: 0.6rem; letter-spacing: 2px; color: var(--muted); }
+.footer-dev {
+  color: var(--gold); text-decoration: none;
+  opacity: 0.6; transition: opacity 0.3s;
+}
+.footer-dev:hover { opacity: 1; }
 
 /* REVEAL */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; }
