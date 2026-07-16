@@ -411,33 +411,27 @@ footer {
   #hero {
     grid-template-columns: 1fr;
     position: relative;
-    min-height: 100vh;
-    overflow: hidden;
   }
   .hero-left {
+    grid-row: 1;
+    grid-column: 1;
     padding: 7rem 1.5rem 3rem;
     position: relative;
     z-index: 3;
-    background: none;
-  }
-  .hero-left::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(28,28,30,0.78);
-    z-index: -1;
+    background: rgba(28,28,30,0.75);
   }
   .hero-left::after { display: none; }
   .hero-right {
-    position: absolute !important;
-    top: 0; left: 0; right: 0; bottom: 0;
-    display: block !important;
+    grid-row: 1;
+    grid-column: 1;
+    position: relative;
     z-index: 1;
+    background: var(--grafite2);
     overflow: hidden;
-    grid-row: 1; grid-column: 1;
+    min-height: 100vh;
   }
   .hero-right::after {
-    background: none !important;
+    background: none;
   }
   .hero-photo {
     position: absolute;
