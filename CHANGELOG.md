@@ -3,6 +3,12 @@
 Todas as mudanças relevantes deste projeto são registradas aqui.
 O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e o projeto usa [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [2.0.1] - 08/10/2026
+
+### 🐛 Correções
+
+- Corrige contraste do dourado e remove animações de layout
+
 ## [2.0.0] - 08/10/2026
 
 ### ✨ Novidades
