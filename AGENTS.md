@@ -2,7 +2,7 @@
 
 ## Diretrizes
 - Site estático sem build: HTML, CSS e JS puros. Sem dependências.
-- **Público:** quem contrata DJ para eventos **sociais** (casamentos, formaturas, 15 anos, aniversários) e **corporativos** (confraternizações, lançamentos, convenções, feiras). O tom é de experiência e confiança, não de balada.
+- **Público:** quem contrata DJ para eventos **sociais** (casamentos, formaturas, 15 anos, aniversários), **corporativos** (confraternizações, lançamentos, convenções, feiras) e também **baladas e casas noturnas** (o dono pediu para incluir em 08/10). O tom é de experiência e confiança.
 - Identidade do cliente: grafite (`#141416`) e dourado (`#c8a96e`), logo branca. Fontes: Bodoni Moda (títulos) e Instrument Sans (texto).
 - Dados: mais de 30 anos de pista, 2.000+ eventos, Castro e Ponta Grossa (PR). WhatsApp (42) 99851-3740, Instagram @dj_reinaldo_.
 - Repertório: retrô (70/80/90), sertanejo, funknejo, eletrônica e funk.
@@ -11,9 +11,16 @@
 - Commits em Conventional Commits (pt-BR).
 
 ## Estado atual
-- v2.0.1 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
+- v2.1.0 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
 
 ## Registro
+### 08/10/2026 — Claude Code (baladas e SEO, v2.1.0)
+- **Feito:** incluído que ele também toca em baladas: terceiro bloco "Baladas e casas noturnas" na seção de eventos (agora em 3 colunas), etiqueta e texto do hero, faixa correndo, frase do sobre e metadados. Os itens do bloco (festas temáticas, open, universitárias, festivais) são suposição: confirmar com o Reinaldo.
+- **SEO (feito):** título e descrição com "DJ em Castro e Ponta Grossa, PR", dados estruturados (`WebSite` + negócio com endereço em Castro/PR e área atendida), `robots.txt`, `sitemap.xml`, `404.html` (antes qualquer endereço inexistente devolvia a página inicial com código 200) e, no Cloudflare, regra de redirecionamento 301 de `www` para o domínio raiz.
+- **SEO (depende do dono, exige login na conta Google):** criar a propriedade de domínio no Google Search Console, passar o código `google-site-verification` para entrar no DNS (Cloudflare), enviar o sitemap e pedir indexação da página inicial; criar ou reivindicar o Perfil da Empresa no Google (é o que mais pesa em buscas locais como "dj em castro pr").
+- **Arquivos:** `index.html`, `css/style.css`, `robots.txt`, `sitemap.xml`, `404.html`.
+- **Testes:** Chrome 1440x900: três blocos lado a lado, sem rolagem horizontal; no ar: robots, sitemap, 404 e redirecionamento do `www` conferidos por HTTP. Não testado: celular nesta rodada.
+- **Próximo passo:** dono fazer a parte do Search Console e do Perfil da Empresa; validar a copy com o Reinaldo.
 ### 08/10/2026 — Claude Code (ajustes de qualidade, v2.0.1)
 - **Feito:** correções apontadas pelo verificador do impeccable: dourado do texto sobre o fundo claro escurecido para passar no contraste (`#755a1a`), fim das animações de `padding` (topo e linhas do repertório, que agora deslizam com `translate`), etiqueta do hero sem caixa alta, `overflow-x: clip` removido do `html` (não era necessário) e números "01 —" retirados das etiquetas de seção.
 - **Exceções registradas em `.impeccable/config.json` (fora do git), decididas pelo Claude sem consultar o dono:** `cramped-padding` e `flat-type-hierarchy` no `index.html` (falsos positivos: o detector não enxerga o recuo do `.wrap` nem os `clamp()` dos títulos), `overused-font` para a Instrument Sans (escolha intencional) e `marquee` (faixa reaproveitada do DJ Laroca).

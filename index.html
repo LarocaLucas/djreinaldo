@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#141416">
-  <meta name="description" content="DJ Reinaldo: mais de 30 anos de pista e 2.000 eventos. DJ para casamentos, formaturas, aniversários e eventos corporativos em Castro, Ponta Grossa e região. Peça seu orçamento pelo WhatsApp.">
-  <title>DJ Reinaldo — DJ para casamentos, formaturas e eventos corporativos | Castro e Ponta Grossa, PR</title>
-  <meta property="og:title" content="DJ Reinaldo — a música certa para cada momento do seu evento">
-  <meta property="og:description" content="Mais de 30 anos de pista e 2.000 eventos. Casamentos, formaturas, aniversários e eventos corporativos em Castro, Ponta Grossa e região.">
+  <meta name="description" content="DJ Reinaldo: DJ em Castro e Ponta Grossa, PR, para casamentos, formaturas, eventos corporativos e baladas. Mais de 30 anos de pista e 2.000 eventos.">
+  <title>DJ Reinaldo | DJ em Castro e Ponta Grossa, PR: casamentos, empresas e baladas</title>
+  <meta property="og:title" content="DJ Reinaldo | DJ para casamentos, eventos corporativos e baladas em Castro e Ponta Grossa, PR">
+  <meta property="og:description" content="Mais de 30 anos de pista e 2.000 eventos. Casamentos, formaturas, aniversários, eventos corporativos e casas noturnas em Castro, Ponta Grossa e região.">
+  <meta property="og:site_name" content="DJ Reinaldo">
   <meta property="og:image" content="https://djreinaldo.com.br/assets/images/og_img.png">
   <meta property="og:url" content="https://djreinaldo.com.br/">
   <meta property="og:type" content="website">
@@ -19,20 +20,62 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/images/foto-hero.jpg">
-  <link rel="stylesheet" href="css/style.css?v=2.0.1">
+  <link rel="stylesheet" href="css/style.css?v=2.1.0">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "EntertainmentBusiness",
-    "name": "DJ Reinaldo",
-    "description": "DJ para casamentos, formaturas, aniversários e eventos corporativos.",
-    "url": "https://djreinaldo.com.br/",
-    "image": "https://djreinaldo.com.br/assets/images/og_img.png",
-    "telephone": "+55-42-99851-3740",
-    "areaServed": ["Castro, PR", "Ponta Grossa, PR", "Paraná"],
-    "sameAs": ["https://instagram.com/dj_reinaldo_"]
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://djreinaldo.com.br/#site",
+      "url": "https://djreinaldo.com.br/",
+      "name": "DJ Reinaldo",
+      "inLanguage": "pt-BR"
+    },
+    {
+      "@type": "EntertainmentBusiness",
+      "@id": "https://djreinaldo.com.br/#dj",
+      "name": "DJ Reinaldo",
+      "description": "DJ em Castro e Ponta Grossa, PR, para casamentos, formaturas, aniversários, eventos corporativos e casas noturnas. Mais de 30 anos de pista e 2.000 eventos.",
+      "url": "https://djreinaldo.com.br/",
+      "image": "https://djreinaldo.com.br/assets/images/og_img.png",
+      "logo": "https://djreinaldo.com.br/assets/images/logo.png",
+      "telephone": "+55-42-99851-3740",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Castro",
+        "addressRegion": "PR",
+        "addressCountry": "BR"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Castro, PR"
+        },
+        {
+          "@type": "City",
+          "name": "Ponta Grossa, PR"
+        },
+        {
+          "@type": "State",
+          "name": "Paraná"
+        }
+      ],
+      "knowsAbout": [
+        "DJ para casamento",
+        "DJ para formatura",
+        "DJ para festa de 15 anos",
+        "DJ para aniversário",
+        "DJ para evento corporativo",
+        "DJ para balada"
+      ],
+      "sameAs": [
+        "https://instagram.com/dj_reinaldo_"
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -52,9 +95,9 @@
   <main id="conteudo">
     <section class="hero">
       <div class="hero-txt">
-        <p class="tag">DJ para eventos sociais e corporativos</p>
+        <p class="tag">DJ para eventos sociais, corporativos e baladas</p>
         <h1 data-split="words">A música certa para cada momento do seu evento.</h1>
-        <p class="hero-sub">Casamentos, formaturas, aniversários e eventos de empresa, com repertório montado para o seu público e mais de 30 anos de pista.</p>
+        <p class="hero-sub">Casamentos, formaturas, aniversários, eventos de empresa e casas noturnas em Castro, Ponta Grossa e região, com repertório montado para o seu público e mais de 30 anos de pista.</p>
         <div class="hero-acoes">
           <a class="pill pill-ouro pill-lg" href="https://wa.me/5542998513740?text=Ol%C3%A1%20DJ%20Reinaldo!%20Gostaria%20de%20um%20or%C3%A7amento.%20Data%20do%20evento%3A%20%20%7C%20Cidade%3A%20%20%7C%20Tipo%20de%20evento%3A%20" target="_blank" rel="noopener">Pedir orçamento no WhatsApp</a>
           <a class="pill pill-linha pill-lg" href="#eventos">Ver tipos de evento</a>
@@ -70,13 +113,13 @@
     </section>
 
     <!-- 4 cópias iguais: a animação anda exatamente 1 cópia e recomeça, sem emenda -->
-    <div class="rolante" aria-hidden="true"><div><span>Casamentos · Formaturas · Aniversários · 15 anos · Confraternizações · Eventos corporativos · </span><span>Casamentos · Formaturas · Aniversários · 15 anos · Confraternizações · Eventos corporativos · </span><span>Casamentos · Formaturas · Aniversários · 15 anos · Confraternizações · Eventos corporativos · </span><span>Casamentos · Formaturas · Aniversários · 15 anos · Confraternizações · Eventos corporativos · </span></div></div>
+    <div class="rolante" aria-hidden="true"><div><span>Casamentos · Formaturas · Aniversários · 15 anos · Confraternizações · Eventos corporativos · Baladas · </span><span>Casamentos · Formaturas · Aniversários · 15 anos · Confraternizações · Eventos corporativos · Baladas · </span><span>Casamentos · Formaturas · Aniversários · 15 anos · Confraternizações · Eventos corporativos · Baladas · </span><span>Casamentos · Formaturas · Aniversários · 15 anos · Confraternizações · Eventos corporativos · Baladas · </span></div></div>
 
     <section class="eventos" id="eventos">
       <div class="wrap">
         <div class="cab">
           <p class="tag">Eventos</p>
-          <h2 class="titulo">Do sim dos noivos à <em>confraternização</em> da empresa</h2>
+          <h2 class="titulo">Do sim dos noivos à <em>pista da balada</em></h2>
         </div>
         <div class="duplo">
           <article class="bloco" data-rev>
@@ -101,15 +144,26 @@
               <li>Feiras e ativações de marca</li>
             </ul>
           </article>
+          <article class="bloco" data-rev>
+            <p class="tag">Baladas e casas noturnas</p>
+            <h3>Para a casa que quer a pista cheia até o fim</h3>
+            <p>O mesmo DJ dos eventos também comanda a noite. Sets para casas noturnas, bares e festas temáticas, com a energia e o repertório que cada público pede.</p>
+            <ul>
+              <li>Casas noturnas e bares</li>
+              <li>Festas temáticas e retrô</li>
+              <li>Festas open e universitárias</li>
+              <li>Shows e festivais na região</li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
 
     <section class="sobre wrap" id="sobre">
       <p class="tag">Sobre</p>
-      <p class="statement" data-split="words" data-scrub>São mais de trinta anos lendo pistas: da festa em família ao grande evento de empresa, Reinaldo sabe a hora de deixar a conversa fluir e a hora de encher a pista.</p>
+      <p class="statement" data-split="words" data-scrub>São mais de trinta anos lendo pistas: da festa em família ao evento de empresa e à balada, Reinaldo sabe a hora de deixar a conversa fluir e a hora de encher a pista.</p>
       <div class="sobre-foot">
-        <p data-rev>Natural de Castro, PR, com atuação em Ponta Grossa e em toda a região, DJ Reinaldo soma mais de 2.000 eventos. O repertório atravessa gerações, do retrô dos anos 70, 80 e 90 aos sucessos de hoje, para avós, pais e filhos dividirem a mesma pista.</p>
+        <p data-rev>Natural de Castro, PR, com atuação em Ponta Grossa e em toda a região, DJ Reinaldo soma mais de 2.000 eventos, entre festas, empresas e casas noturnas. O repertório atravessa gerações, do retrô dos anos 70, 80 e 90 aos sucessos de hoje, para avós, pais e filhos dividirem a mesma pista.</p>
         <ol class="passos">
           <li data-rev><span>1</span><h3>Você conta como é o evento</h3><p>Data, cidade, tipo de festa e perfil dos convidados, pelo WhatsApp.</p></li>
           <li data-rev><span>2</span><h3>O repertório é combinado antes</h3><p>Estilos que não podem faltar, músicas dos momentos especiais e o que deve ficar de fora.</p></li>
@@ -157,7 +211,7 @@
       <div class="wrap">
         <p class="tag">Contato</p>
         <h2 class="mega" data-split="words">Vamos falar do seu evento?</h2>
-        <p class="contato-txt" data-rev>Mande a data, a cidade e o tipo de evento. O orçamento chega pelo WhatsApp, sem compromisso.</p>
+        <p class="contato-txt" data-rev>Procurando DJ em Castro, Ponta Grossa ou região? Mande a data, a cidade e o tipo de evento. O orçamento chega pelo WhatsApp, sem compromisso.</p>
         <div class="contato-acoes" data-rev>
           <a class="pill pill-ouro pill-lg" href="https://wa.me/5542998513740?text=Ol%C3%A1%20DJ%20Reinaldo!%20Gostaria%20de%20um%20or%C3%A7amento.%20Data%20do%20evento%3A%20%20%7C%20Cidade%3A%20%20%7C%20Tipo%20de%20evento%3A%20" target="_blank" rel="noopener">WhatsApp (42) 99851-3740</a>
           <a class="pill pill-linha pill-lg" href="https://instagram.com/dj_reinaldo_" target="_blank" rel="noopener">Instagram @dj_reinaldo_</a>
@@ -169,7 +223,7 @@
 
   <footer class="rodape wrap">
     <img src="assets/images/logo.png" alt="DJ Reinaldo" width="2784" height="1052" loading="lazy">
-    <p>© <span id="ano">2026</span> DJ Reinaldo. Todos os direitos reservados.</p>
+    <p>© <span id="ano">2026</span> DJ Reinaldo · DJ em Castro e Ponta Grossa, PR</p>
     <p>Desenvolvido por <a href="https://laroca.dev" target="_blank" rel="noopener">laroca.dev</a></p>
   </footer>
 
@@ -184,6 +238,6 @@
     <button class="visor-prox" type="button" aria-label="Próxima foto">›</button>
   </dialog>
 
-  <script src="js/main.js?v=2.0.1" defer></script>
+  <script src="js/main.js?v=2.1.0" defer></script>
 </body>
 </html>
