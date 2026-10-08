@@ -11,9 +11,15 @@
 - Commits em Conventional Commits (pt-BR).
 
 ## Estado atual
-- v2.0.0 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
+- v2.0.1 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
 
 ## Registro
+### 08/10/2026 — Claude Code (ajustes de qualidade, v2.0.1)
+- **Feito:** correções apontadas pelo verificador do impeccable: dourado do texto sobre o fundo claro escurecido para passar no contraste (`#755a1a`), fim das animações de `padding` (topo e linhas do repertório, que agora deslizam com `translate`), etiqueta do hero sem caixa alta, `overflow-x: clip` removido do `html` (não era necessário) e números "01 —" retirados das etiquetas de seção.
+- **Exceções registradas em `.impeccable/config.json` (fora do git), decididas pelo Claude sem consultar o dono:** `cramped-padding` e `flat-type-hierarchy` no `index.html` (falsos positivos: o detector não enxerga o recuo do `.wrap` nem os `clamp()` dos títulos), `overused-font` para a Instrument Sans (escolha intencional) e `marquee` (faixa reaproveitada do DJ Laroca).
+- **Arquivos:** `css/style.css`, `index.html`.
+- **Testes:** Chrome em ~930px e 390x844, página inteira rolada: sem rolagem horizontal e nenhum elemento passando da largura da tela. Não testado: celular real.
+- **Próximo passo:** validar a copy com o Reinaldo.
 ### 08/10/2026 — Claude Code (site refeito, v2.0.0)
 - **Feito:** site refeito a pedido do dono (laroca.dev), reaproveitando o que funcionou no DJ Laroca v3: hero com retrato em arco, faixa correndo com os tipos de evento, blocos "eventos sociais" e "eventos corporativos", frase que acende com a rolagem, números que contam, "como funciona" em 3 passos, repertório, galeria de fotos espalhadas com visor, contato em dourado e botão flutuante do WhatsApp. SEO: título e descrição por tipo de evento e cidade, dados estruturados, favicon SVG. `_headers` para o Cloudflare.
 - **Suposições na copy (confirmar com o Reinaldo):** os 3 passos do "como funciona", os itens de eventos corporativos (lançamentos, convenções, feiras) e "outras cidades sob consulta". Não foi citado equipamento de som/luz porque não havia essa informação.
