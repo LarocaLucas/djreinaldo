@@ -1,0 +1,22 @@
+# Imagens, vídeo e fontes (30 dias)
+/assets/*
+  Cache-Control: public, max-age=2592000
+
+# Favicons (7 dias)
+/*.ico
+  Cache-Control: public, max-age=604800
+/*.png
+  Cache-Control: public, max-age=604800
+
+# CSS e JS (1 dia; o ?v= no index.html força a troca quando mudam)
+/css/*
+  Cache-Control: public, max-age=86400
+/js/*
+  Cache-Control: public, max-age=86400
+
+
+# Segurança
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
