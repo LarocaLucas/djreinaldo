@@ -6,7 +6,7 @@
 - Identidade do cliente: grafite (`#141416`) e dourado (`#c8a96e`), logo branca. Fontes: Bodoni Moda (títulos) e Instrument Sans (texto).
 - Dados: mais de 30 anos de pista, 2.000+ eventos, Castro e Ponta Grossa (PR). WhatsApp (42) 99851-3740, Instagram @dj_reinaldo_.
 - Repertório: retrô (70/80/90), sertanejo, funknejo, eletrônica e funk.
-- Galeria: fotos espalhadas que trocam sozinhas; os números usados ficam em `data-fotos` da `.mesa` no `index.html` (ficaram de fora logos antigas, flyer, print do Instagram e fotos de caixa de som).
+- Galeria: grade de 3 colunas (2 no celular) com as fotos aparecendo ao rolar e visor com setas; a ordem/números das fotos ficam em `data-fotos` da `.grade` no `index.html` (ficaram de fora logos antigas, flyer, print do Instagram e fotos de caixa de som).
 - **Publicação:** Cloudflare Pages, projeto `djreinaldo`, automática a cada push na `main` → https://djreinaldo.com.br/. Todo push vai ao ar: testar antes.
 - Commits em Conventional Commits (pt-BR).
 
@@ -14,6 +14,10 @@
 - v2.1.0 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
 
 ## Registro
+### 03/11/2026 — Claude Code (galeria em grade, v2.2.0)
+- **Feito:** galeria trocada, a pedido do dono, por grade regular (3 colunas, 2 no celular, fotos 4:5 com cantos de 6 px) das mesmas 18 fotos; entrada ao rolar com opacidade + deslocamento de 24 px em 400 ms, cascata de 70 ms por coluna, desligada com `prefers-reduced-motion`. Visor (dialog) com setas, teclado ←/→/Esc, arrastar horizontal no celular, botão fechar, contador "n / 18", foco preso (dialog modal) e devolvido à foto ao fechar. Sem bibliotecas. Resto do site intocado.
+- **Arquivos:** `index.html`, `css/style.css`, `js/main.js`, `AGENTS.md`.
+- **Testes:** `node --check` ok; Edge headless 1440 e 500 px: grade e visor (abrir e avançar) renderizam certo. Não testado: iPhone/Android reais, gesto de arrastar, Esc/teclas (lógica simples, sem teste automatizado), efeito de entrada ao rolar (o headless não rola de verdade).
 ### 08/10/2026 — Claude Code (baladas e SEO, v2.1.0)
 - **Feito:** incluído que ele também toca em baladas: terceiro bloco "Baladas e casas noturnas" na seção de eventos (agora em 3 colunas), etiqueta e texto do hero, faixa correndo, frase do sobre e metadados. Os itens do bloco (festas temáticas, open, universitárias, festivais) são suposição: confirmar com o Reinaldo.
 - **SEO (feito):** título e descrição com "DJ em Castro e Ponta Grossa, PR", dados estruturados (`WebSite` + negócio com endereço em Castro/PR e área atendida), `robots.txt`, `sitemap.xml`, `404.html` (antes qualquer endereço inexistente devolvia a página inicial com código 200) e, no Cloudflare, regra de redirecionamento 301 de `www` para o domínio raiz.

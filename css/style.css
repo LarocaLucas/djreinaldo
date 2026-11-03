@@ -112,27 +112,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .faixas h3 { font: 500 clamp(1.5rem, 2.6vw, 2.4rem)/1.1 var(--serif); }
 .faixas p { color: var(--suave); max-width: 36em; }
 
-/* ---------- Galeria: fotos espalhadas ---------- */
+/* ---------- Galeria: grade ---------- */
 .galeria { padding-block: clamp(64px, 12vh, 130px); }
-.mesa { position: relative; margin-top: clamp(36px, 7vh, 72px); height: clamp(430px, 50vw, 720px); }
-.slot { position: absolute; width: 24%; rotate: var(--r); transition: rotate .5s var(--ease), translate .5s var(--ease); }
-.slot:nth-child(1) { left: 0%;  top: 4%;  --r: -5deg; }
-.slot:nth-child(2) { left: 22%; top: -1%; --r: 3deg; width: 17%; }
-.slot:nth-child(3) { left: 40%; top: 6%;  --r: -2deg; }
-.slot:nth-child(4) { left: 64%; top: 0%;  --r: 4deg; width: 16%; }
-.slot:nth-child(5) { left: 78%; top: 12%; --r: -3deg; width: 22%; }
-.slot:nth-child(6) { left: 4%;  top: 42%; --r: 4deg; width: 16%; }
-.slot:nth-child(7) { left: 23%; top: 52%; --r: -4deg; }
-.slot:nth-child(8) { left: 49%; top: 50%; --r: 2deg; }
-.slot:nth-child(9) { left: 75%; top: 54%; --r: -2deg; }
-.slot:hover, .slot:focus-within { rotate: 0deg; translate: 0 -10px; z-index: 999 !important; }
-.foto { position: absolute; left: 0; top: 0; width: 100%; padding: 6px 6px 20px; background: #f4f1ea; box-shadow: 0 2px 3px rgba(0, 0, 0, .45), 0 18px 34px rgba(0, 0, 0, .5); transition: opacity .8s; }
-.foto img { width: 100%; height: auto; }
-.foto.entra { animation: joga .75s var(--ease) both; }
-.foto.sai { opacity: 0; pointer-events: none; }
-@keyframes joga { from { opacity: 0; transform: translate(6%, -22%) scale(1.2) rotate(8deg); } 60% { opacity: 1; } }
-.js .mesa:not(.in) .foto { opacity: 0; }
-.js .mesa.in .slot > .foto:not(.entra):not(.sai) { animation: joga .8s var(--ease) both; animation-delay: calc(var(--k, 0) * 90ms); }
+.grade { margin-top: clamp(36px, 7vh, 72px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(8px, 1.4vw, 18px); }
+.foto { display: block; padding: 0; overflow: hidden; border-radius: 6px; background: rgba(240, 237, 232, .06); aspect-ratio: 4 / 5; cursor: zoom-in; }
+.foto img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+.foto:hover img, .foto:focus-visible img { transform: scale(1.04); }
+.foto:focus-visible { outline: 2px solid var(--ouro); outline-offset: 3px; }
+.js .foto { opacity: 0; transform: translateY(24px); transition: opacity .4s var(--ease), transform .4s var(--ease); transition-delay: calc(var(--k, 0) * 70ms); }
+.js .foto.in { opacity: 1; transform: none; }
 
 .visor { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; border: 0; background: rgba(20, 20, 22, .95); color: #fff; }
 .visor[open] { display: grid; place-items: center; }
@@ -140,6 +128,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .visor img { max-width: 92vw; max-height: 88dvh; object-fit: contain; }
 .visor button { position: absolute; width: 52px; height: 52px; border-radius: 50%; background: rgba(240, 237, 232, .14); font-size: 1.7rem; line-height: 1; transition: background .2s, color .2s; }
 .visor button:hover { background: var(--ouro); color: var(--tinta); }
+.visor-n { position: absolute; top: 28px; left: 20px; font-size: .9rem; color: var(--suave); }
 .visor-x { top: 16px; right: 16px; }
 .visor-ant { left: 16px; top: 50%; translate: 0 -50%; }
 .visor-prox { right: 16px; top: 50%; translate: 0 -50%; }
@@ -192,17 +181,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .duplo, .sobre-foot, .passos { grid-template-columns: 1fr; }
   .faixas li { grid-template-columns: 2.6em 1fr; }
   .faixas p { grid-column: 2; }
-  .mesa { height: 228vw; }
-  .slot, .slot:nth-child(n) { width: 46%; }
-  .slot:nth-child(1) { left: 1%;  top: 0; }
-  .slot:nth-child(2) { left: 52%; top: 3%; }
-  .slot:nth-child(3) { left: 6%;  top: 26%; }
-  .slot:nth-child(4) { left: 50%; top: 30%; }
-  .slot:nth-child(5) { left: 2%;  top: 52%; }
-  .slot:nth-child(6) { left: 51%; top: 56%; }
-  .slot:nth-child(7) { left: 8%;  top: 76%; }
-  .slot:nth-child(8) { left: 50%; top: 79%; }
-  .slot:nth-child(9) { display: none; }
+  .grade { grid-template-columns: repeat(2, 1fr); }
   .rodape { justify-content: center; text-align: center; }
 }
 
@@ -212,5 +191,5 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .js [data-split] span, .js [data-rev], .js .faixas li, .js .bloco li, .js .hero-foto[data-rev] { opacity: 1; transform: none; }
   .js .statement span { opacity: 1; }
   .js .cab[data-rev] .titulo { clip-path: none; }
-  .js .mesa:not(.in) .foto { opacity: 1; }
+  .js .foto { opacity: 1; transform: none; }
 }
