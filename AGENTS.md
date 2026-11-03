@@ -14,6 +14,10 @@
 - v2.1.0 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
 
 ## Registro
+### 04/11/2026 — Claude Code (correção: site desmontado)
+- O dono viu o site "todo desconfigurado, só uma foto grande". Causa: a galeria nova mudou o CSS, mas o `index.html` continuou chamando `css/style.css?v=2.1.0`; o cache do Cloudflare e dos navegadores entregava o CSS antigo com o HTML novo. Corrigido com `?v=2.2.0` no CSS.
+- Regra: **sempre que mudar `css/style.css` ou `js/main.js`, suba o `?v=` correspondente no `index.html`.**
+- Testes: print do site no ar (500x900) com o topo e o texto certos.
 ### 03/11/2026 — Claude Code (galeria em grade, v2.2.0)
 - **Feito:** galeria trocada, a pedido do dono, por grade regular (3 colunas, 2 no celular, fotos 4:5 com cantos de 6 px) das mesmas 18 fotos; entrada ao rolar com opacidade + deslocamento de 24 px em 400 ms, cascata de 70 ms por coluna, desligada com `prefers-reduced-motion`. Visor (dialog) com setas, teclado ←/→/Esc, arrastar horizontal no celular, botão fechar, contador "n / 18", foco preso (dialog modal) e devolvido à foto ao fechar. Sem bibliotecas. Resto do site intocado.
 - **Arquivos:** `index.html`, `css/style.css`, `js/main.js`, `AGENTS.md`.
