@@ -9,6 +9,6 @@ Site do DJ Reinaldo, no ar em [djreinaldo.com.br](https://djreinaldo.com.br/): e
 - `index.html` — todo o conteúdo
 - `css/style.css` — layout, paleta grafite e dourado
 - `js/main.js` — entradas ao rolar, números, galeria e visor
-- `assets/images/galeria/foto-NNN.jpg` — fotos; as que aparecem estão listadas em `data-fotos` da `.mesa` no `index.html`
+- Galeria: vem só do `galeria.json` publicado pela Central em `https://arquivos.djreinaldo.com.br/site/galeria.json` (grade 3x3 montada no `js/main.js`; fotos `ocultas` não aparecem). Sem JSON, a seção some.
 
 Desenvolvido por [laroca.dev](https://laroca.dev).

@@ -6,14 +6,18 @@
 - Identidade do cliente: grafite (`#141416`) e dourado (`#c8a96e`), logo branca. Fontes: Newsreader (títulos) e Instrument Sans (texto).
 - Dados: mais de 30 anos de pista, 2.000+ eventos, Castro e Ponta Grossa (PR). WhatsApp (42) 99851-3740, Instagram @dj_reinaldo_.
 - Repertório: retrô (70/80/90), sertanejo, funknejo, eletrônica e funk.
-- Galeria: grade de 3 colunas (2 no celular) com as fotos aparecendo ao rolar e visor com setas; a ordem/números das fotos ficam em `data-fotos` da `.grade` no `index.html` (ficaram de fora logos antigas, flyer, print do Instagram e fotos de caixa de som).
+- Galeria: **só** as fotos publicadas pela Central laroca.dev em `https://arquivos.djreinaldo.com.br/site/galeria.json` (álbuns mais novos primeiro; fotos listadas em `ocultas` de cada evento não aparecem). Grade 3x3 (3 colunas também no celular, espaço de 6 px) montada pelo `js/main.js`; as demais fotos entram na troca automática (a cada 2,3 s) e no visor. JSON fora do ar, inválido ou sem fotos: a seção e o link "Galeria" do menu somem. As fotos antigas que ficavam no código (`assets/images/galeria/`) foram removidas em 04/11/2026.
 - **Publicação:** Cloudflare Pages, projeto `djreinaldo`, automática a cada push na `main` → https://djreinaldo.com.br/. Todo push vai ao ar: testar antes.
 - Commits em Conventional Commits (pt-BR).
 
 ## Estado atual
-- v2.3.0 (04/11/2026); antes v2.1.0 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
+- v2.4.0 (04/11/2026, galeria só do R2); antes v2.3.0; antes v2.1.0 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
 
 ## Registro
+### 04/11/2026 — Claude Code (galeria só da Central, 3x3, v2.4.0)
+- **Feito (pedido do dono):** removidas as 18 fotos fixas da grade e o `data-fotos`; apagada a pasta `assets/images/galeria/` (26 arquivos, nenhum outro uso conferido com grep; foto do topo e logo ficam). A grade 3x3 nasce com 9 lugares vazios (o link `#galeria` cai no lugar certo) e recebe as fotos do `galeria.json`; `ocultas` respeitadas (nem na grade nem no visor); pasta com sufixo `-N` (álbum substituído na Central) ordena pela data. Troca a cada **2,3 s** (antes 3 s), mesmas condições. Sem JSON ou sem fotos: seção e link do menu escondidos (`[hidden]` com `display: none !important`). Celular: 3 colunas, `gap: 6px`.
+- **Versões:** CSS e JS `?v=2.4.0`.
+- **Testes:** `node --check`; cópia local com `galeria.json` de exemplo (ocultas 1 e 2 → grade começa na 03, 9 fotos, troca acontecendo), com o JSON publicado (sem campos novos: começa na 01) e com JSON 404 (seção some); prints Chrome (playwright-core) 1440 e 500 rolados até a galeria, console sem erros. Depois do push, print do publicado.
 ### 04/11/2026 — Claude Code (fonte, galeria que troca e fotos da Central, v2.3.0)
 - **Feito:** (1) serifada trocada de Bodoni Moda para Newsreader (400-600, com itálico), `letter-spacing` dos títulos suavizado. (2) Galeria: a cada 3 s uma foto da grade, em lugar aleatório, troca por outra ainda não exibida (fade de opacidade); só com a grade na tela, aba ativa, visor fechado e sem `prefers-reduced-motion`. (3) `js/main.js` busca `https://arquivos.djreinaldo.com.br/site/galeria.json` (`cache: 'no-cache'`; formato da Central: `eventos[{folder,total,miniaturas}]`, fotos `<folder>/NN.jpg`, miniatura `<folder>/mini/NN.webp`); eventos mais novos primeiro, antes das fotos locais; visor e rotação usam o conjunto todo. Se falhar, só as locais, sem erro visível.
 - **Atenção:** o domínio `arquivos.djreinaldo.com.br` ainda não existe (aguarda ok do dono). Enquanto isso as 18 fotos locais já ocupam os 18 lugares da grade, então **não há troca** até entrarem fotos novas.

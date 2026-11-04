@@ -53,34 +53,45 @@
   }, { threshold: 1 });
   if (!semMovimento) $$('.stats dd').forEach(el => conta.observe(el));
 
-  /* Galeria: fotos entram ao rolar (cascata curta por linha) e abrem num visor com setas, teclado e arrastar */
-  const grade = $('.grade'), visor = $('.visor'), visorImg = $('img', visor), contador = $('.visor-n');
+  /* Galeria: só as fotos publicadas pela Central (galeria.json no R2). Grade 3x3; as demais entram na troca e no visor */
+  const secao = $('#galeria'), grade = $('.grade'), visor = $('.visor'), visorImg = $('img', visor), contador = $('.visor-n');
   const R2 = 'https://arquivos.djreinaldo.com.br';
-  const fotos = $$('.foto', grade);
-  /* itens: {src (visor), thumb (grade)}; as locais vêm de data-fotos, as do R2 entram na frente quando o galeria.json responde */
-  let itens = grade.dataset.fotos.split(',').map(Number).map(n => { const s = `assets/images/galeria/foto-${String(n).padStart(3, '0')}.jpg`; return { src: s, thumb: s }; });
-  const locais = itens.length;
-  fotos.forEach((f, i) => { f.style.setProperty('--k', i % 3); f.dataset.i = i; });
+  const LUGARES = 9, TROCA_MS = 2300;
+  let itens = [];
+  /* os 9 lugares nascem vazios (mesma altura de sempre, o link #galeria cai no lugar certo) e recebem as fotos quando o JSON chega */
+  const fotos = Array.from({ length: LUGARES }, (_, i) => {
+    const b = document.createElement('button');
+    b.className = 'foto'; b.type = 'button'; b.style.setProperty('--k', i % 3);
+    b.setAttribute('aria-label', 'Ampliar foto');
+    const img = document.createElement('img');
+    img.alt = ''; img.width = 600; img.height = 750; img.decoding = 'async';
+    b.append(img); grade.append(b);
+    return b;
+  });
   const entraFoto = new IntersectionObserver(es => {
     for (const e of es) if (e.isIntersecting) { e.target.classList.add('in'); entraFoto.unobserve(e.target); }
   }, { threshold: .1, rootMargin: '0px 0px -5% 0px' });
   fotos.forEach(f => entraFoto.observe(f));
 
-  /* fotos novas publicadas pela Central; se falhar (domínio fora do ar, JSON inválido), ficam só as locais, sem erro visível */
+  /* sem JSON (domínio fora do ar, inválido ou sem fotos): a seção e o link do menu somem, sem erro visível */
+  const esconde = () => { secao.hidden = true; $$('a[href="#galeria"]').forEach(a => { a.hidden = true; }); };
   fetch(`${R2}/site/galeria.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject()).then(j => {
-    const data = f => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(f) || /^(\d{2})-(\d{2})-(\d{4})$/.exec(f); return m ? (f[4] === '-' ? f : `${m[3]}-${m[2]}-${m[1]}`) : ''; };
+    /* pasta DD-MM-AAAA ou AAAA-MM-DD, com sufixo -N quando o álbum foi substituído */
+    const data = f => { let m = /^(\d{2})-(\d{2})-(\d{4})(?:-\d+)?$/.exec(f); if (m) return `${m[3]}-${m[2]}-${m[1]}`; m = /^(\d{4}-\d{2}-\d{2})(?:-\d+)?$/.exec(f); return m ? m[1] : ''; };
     const evs = (j.eventos || []).filter(e => /^[\w.-]+$/.test(e.folder) && e.total > 0).map((e, k) => ({ e, k }))
       .sort((x, y) => data(y.e.folder).localeCompare(data(x.e.folder)) || x.k - y.k);
-    const novos = [];
-    for (const { e } of evs) for (let n = 1; n <= Math.min(e.total, 500); n++) {
-      const nn = String(n).padStart(2, '0');
-      novos.push({ src: `${R2}/${e.folder}/${nn}.jpg`, thumb: e.miniaturas === true ? `${R2}/${e.folder}/mini/${nn}.webp` : `${R2}/${e.folder}/${nn}.jpg` });
+    for (const { e } of evs) {
+      const ocultas = new Set(Array.isArray(e.ocultas) ? e.ocultas : []);
+      for (let n = 1; n <= Math.min(e.total, 500); n++) {
+        if (ocultas.has(n)) continue;
+        const nn = String(n).padStart(2, '0');
+        itens.push({ src: `${R2}/${e.folder}/${nn}.jpg`, thumb: e.miniaturas === true ? `${R2}/${e.folder}/mini/${nn}.webp` : `${R2}/${e.folder}/${nn}.jpg` });
+      }
     }
-    if (!novos.length) return;
-    const emUso = fotos.map(f => itens[+f.dataset.i]);
-    itens = [...novos, ...itens.slice(-locais)];
-    fotos.forEach((f, i) => { f.dataset.i = itens.indexOf(emUso[i]); });
-  }).catch(() => {});
+    if (!itens.length) return esconde();
+    fotos.splice(itens.length).forEach(f => f.remove());
+    fotos.forEach((f, i) => { const img = $('img', f); img.src = itens[i].thumb; img.alt = `DJ Reinaldo em evento, foto ${i + 1}`; f.dataset.i = i; });
+  }).catch(esconde);
 
   let atual = 0, origem = null;
   const mostra = i => {
@@ -90,13 +101,13 @@
     for (const d of [1, -1]) new Image().src = itens[(atual + d + itens.length) % itens.length].src;
   };
   grade.addEventListener('click', e => {
-    const f = e.target.closest('.foto'); if (!f) return;
+    const f = e.target.closest('.foto'); if (!f || f.dataset.i === undefined) return;
     origem = f; mostra(+f.dataset.i); visor.showModal();
   });
-  /* troca sozinha: a cada 3 s uma foto da grade (lugar aleatório) dá lugar a uma ainda não exibida */
+  /* troca sozinha: a cada 2,3 s uma foto da grade (lugar aleatório) dá lugar a uma ainda não exibida */
   const naTela = () => { const r = grade.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
   if (!semMovimento) setInterval(() => {
-    if (!naTela() || document.hidden || visor.open) return;
+    if (!naTela() || document.hidden || visor.open || !itens.length) return;
     const usados = new Set(fotos.map(f => +f.dataset.i));
     const livres = itens.map((_, i) => i).filter(i => !usados.has(i));
     if (!livres.length) return;
@@ -104,10 +115,10 @@
     const pre = new Image();
     pre.onload = () => {
       img.classList.add('troca');
-      setTimeout(() => { img.src = itens[k].thumb; f.dataset.i = k; f.setAttribute('aria-label', 'Ampliar foto'); img.classList.remove('troca'); }, 500);
+      setTimeout(() => { img.src = itens[k].thumb; f.dataset.i = k; img.classList.remove('troca'); }, 500);
     };
     pre.src = itens[k].thumb;
-  }, 3000);
+  }, TROCA_MS);
   visor.addEventListener('close', () => origem && origem.focus({ preventScroll: true }));
   $('.visor-x').addEventListener('click', () => visor.close());
   $('.visor-ant').addEventListener('click', () => mostra(atual - 1));

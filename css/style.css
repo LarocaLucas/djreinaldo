@@ -114,6 +114,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Galeria: grade ---------- */
 .galeria { padding-block: clamp(64px, 12vh, 130px); }
+[hidden] { display: none !important; }
 .grade { margin-top: clamp(36px, 7vh, 72px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(8px, 1.4vw, 18px); }
 .foto { display: block; padding: 0; overflow: hidden; border-radius: 6px; background: rgba(240, 237, 232, .06); aspect-ratio: 4 / 5; cursor: zoom-in; }
 .foto img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease), opacity .5s var(--ease); }
@@ -182,7 +183,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .duplo, .sobre-foot, .passos { grid-template-columns: 1fr; }
   .faixas li { grid-template-columns: 2.6em 1fr; }
   .faixas p { grid-column: 2; }
-  .grade { grid-template-columns: repeat(2, 1fr); }
+  .grade { gap: 6px; }
   .rodape { justify-content: center; text-align: center; }
 }
 
