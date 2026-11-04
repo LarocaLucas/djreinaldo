@@ -3,7 +3,7 @@
 ## Diretrizes
 - Site estático sem build: HTML, CSS e JS puros. Sem dependências.
 - **Público:** quem contrata DJ para eventos **sociais** (casamentos, formaturas, 15 anos, aniversários), **corporativos** (confraternizações, lançamentos, convenções, feiras) e também **baladas e casas noturnas** (o dono pediu para incluir em 08/10). O tom é de experiência e confiança.
-- Identidade do cliente: grafite (`#141416`) e dourado (`#c8a96e`), logo branca. Fontes: Bodoni Moda (títulos) e Instrument Sans (texto).
+- Identidade do cliente: grafite (`#141416`) e dourado (`#c8a96e`), logo branca. Fontes: Newsreader (títulos) e Instrument Sans (texto).
 - Dados: mais de 30 anos de pista, 2.000+ eventos, Castro e Ponta Grossa (PR). WhatsApp (42) 99851-3740, Instagram @dj_reinaldo_.
 - Repertório: retrô (70/80/90), sertanejo, funknejo, eletrônica e funk.
 - Galeria: grade de 3 colunas (2 no celular) com as fotos aparecendo ao rolar e visor com setas; a ordem/números das fotos ficam em `data-fotos` da `.grade` no `index.html` (ficaram de fora logos antigas, flyer, print do Instagram e fotos de caixa de som).
@@ -11,9 +11,14 @@
 - Commits em Conventional Commits (pt-BR).
 
 ## Estado atual
-- v2.1.0 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
+- v2.3.0 (04/11/2026); antes v2.1.0 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
 
 ## Registro
+### 04/11/2026 — Claude Code (fonte, galeria que troca e fotos da Central, v2.3.0)
+- **Feito:** (1) serifada trocada de Bodoni Moda para Newsreader (400-600, com itálico), `letter-spacing` dos títulos suavizado. (2) Galeria: a cada 3 s uma foto da grade, em lugar aleatório, troca por outra ainda não exibida (fade de opacidade); só com a grade na tela, aba ativa, visor fechado e sem `prefers-reduced-motion`. (3) `js/main.js` busca `https://arquivos.djreinaldo.com.br/site/galeria.json` (`cache: 'no-cache'`; formato da Central: `eventos[{folder,total,miniaturas}]`, fotos `<folder>/NN.jpg`, miniatura `<folder>/mini/NN.webp`); eventos mais novos primeiro, antes das fotos locais; visor e rotação usam o conjunto todo. Se falhar, só as locais, sem erro visível.
+- **Atenção:** o domínio `arquivos.djreinaldo.com.br` ainda não existe (aguarda ok do dono). Enquanto isso as 18 fotos locais já ocupam os 18 lugares da grade, então **não há troca** até entrarem fotos novas.
+- **Versões:** CSS e JS `?v=2.3.0`.
+- **Testes:** `node --check` ok; prints locais 1440 e 500 (fonte nova); troca testada com um galeria.json falso local (fotos remotas entraram na grade). Não testado: celular real, aba em segundo plano, R2 real.
 ### 04/11/2026 — Claude Code (correção: site desmontado)
 - O dono viu o site "todo desconfigurado, só uma foto grande". Causa: a galeria nova mudou o CSS, mas o `index.html` continuou chamando `css/style.css?v=2.1.0`; o cache do Cloudflare e dos navegadores entregava o CSS antigo com o HTML novo. Corrigido com `?v=2.2.0` no CSS.
 - Regra: **sempre que mudar `css/style.css` ou `js/main.js`, suba o `?v=` correspondente no `index.html`.**

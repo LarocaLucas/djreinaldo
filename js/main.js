@@ -55,25 +55,59 @@
 
   /* Galeria: fotos entram ao rolar (cascata curta por linha) e abrem num visor com setas, teclado e arrastar */
   const grade = $('.grade'), visor = $('.visor'), visorImg = $('img', visor), contador = $('.visor-n');
-  const lista = grade.dataset.fotos.split(',').map(Number), caminho = n => `assets/images/galeria/foto-${String(n).padStart(3, '0')}.jpg`;
+  const R2 = 'https://arquivos.djreinaldo.com.br';
   const fotos = $$('.foto', grade);
-  fotos.forEach((f, i) => f.style.setProperty('--k', i % 3));
+  /* itens: {src (visor), thumb (grade)}; as locais vêm de data-fotos, as do R2 entram na frente quando o galeria.json responde */
+  let itens = grade.dataset.fotos.split(',').map(Number).map(n => { const s = `assets/images/galeria/foto-${String(n).padStart(3, '0')}.jpg`; return { src: s, thumb: s }; });
+  const locais = itens.length;
+  fotos.forEach((f, i) => { f.style.setProperty('--k', i % 3); f.dataset.i = i; });
   const entraFoto = new IntersectionObserver(es => {
     for (const e of es) if (e.isIntersecting) { e.target.classList.add('in'); entraFoto.unobserve(e.target); }
   }, { threshold: .1, rootMargin: '0px 0px -5% 0px' });
   fotos.forEach(f => entraFoto.observe(f));
 
+  /* fotos novas publicadas pela Central; se falhar (domínio fora do ar, JSON inválido), ficam só as locais, sem erro visível */
+  fetch(`${R2}/site/galeria.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject()).then(j => {
+    const data = f => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(f) || /^(\d{2})-(\d{2})-(\d{4})$/.exec(f); return m ? (f[4] === '-' ? f : `${m[3]}-${m[2]}-${m[1]}`) : ''; };
+    const evs = (j.eventos || []).filter(e => /^[\w.-]+$/.test(e.folder) && e.total > 0).map((e, k) => ({ e, k }))
+      .sort((x, y) => data(y.e.folder).localeCompare(data(x.e.folder)) || x.k - y.k);
+    const novos = [];
+    for (const { e } of evs) for (let n = 1; n <= Math.min(e.total, 500); n++) {
+      const nn = String(n).padStart(2, '0');
+      novos.push({ src: `${R2}/${e.folder}/${nn}.jpg`, thumb: e.miniaturas === true ? `${R2}/${e.folder}/mini/${nn}.webp` : `${R2}/${e.folder}/${nn}.jpg` });
+    }
+    if (!novos.length) return;
+    const emUso = fotos.map(f => itens[+f.dataset.i]);
+    itens = [...novos, ...itens.slice(-locais)];
+    fotos.forEach((f, i) => { f.dataset.i = itens.indexOf(emUso[i]); });
+  }).catch(() => {});
+
   let atual = 0, origem = null;
   const mostra = i => {
-    atual = (i + lista.length) % lista.length;
-    visorImg.src = caminho(lista[atual]); visorImg.alt = `DJ Reinaldo em evento, foto ${atual + 1} de ${lista.length}`;
-    contador.textContent = `${atual + 1} / ${lista.length}`;
-    for (const d of [1, -1]) new Image().src = caminho(lista[(atual + d + lista.length) % lista.length]);
+    atual = (i + itens.length) % itens.length;
+    visorImg.src = itens[atual].src; visorImg.alt = `DJ Reinaldo em evento, foto ${atual + 1} de ${itens.length}`;
+    contador.textContent = `${atual + 1} / ${itens.length}`;
+    for (const d of [1, -1]) new Image().src = itens[(atual + d + itens.length) % itens.length].src;
   };
   grade.addEventListener('click', e => {
     const f = e.target.closest('.foto'); if (!f) return;
-    origem = f; mostra(lista.indexOf(+f.dataset.n)); visor.showModal();
+    origem = f; mostra(+f.dataset.i); visor.showModal();
   });
+  /* troca sozinha: a cada 3 s uma foto da grade (lugar aleatório) dá lugar a uma ainda não exibida */
+  const naTela = () => { const r = grade.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+  if (!semMovimento) setInterval(() => {
+    if (!naTela() || document.hidden || visor.open) return;
+    const usados = new Set(fotos.map(f => +f.dataset.i));
+    const livres = itens.map((_, i) => i).filter(i => !usados.has(i));
+    if (!livres.length) return;
+    const f = fotos[Math.floor(Math.random() * fotos.length)], k = livres[0], img = $('img', f);
+    const pre = new Image();
+    pre.onload = () => {
+      img.classList.add('troca');
+      setTimeout(() => { img.src = itens[k].thumb; f.dataset.i = k; f.setAttribute('aria-label', 'Ampliar foto'); img.classList.remove('troca'); }, 500);
+    };
+    pre.src = itens[k].thumb;
+  }, 3000);
   visor.addEventListener('close', () => origem && origem.focus({ preventScroll: true }));
   $('.visor-x').addEventListener('click', () => visor.close());
   $('.visor-ant').addEventListener('click', () => mostra(atual - 1));
