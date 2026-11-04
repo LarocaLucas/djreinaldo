@@ -1,14 +1,44 @@
 # DJ Reinaldo — site oficial
 
-Site do DJ Reinaldo, no ar em [djreinaldo.com.br](https://djreinaldo.com.br/): estático (HTML, CSS e JS puros, sem build), voltado a quem contrata DJ para eventos sociais e corporativos.
+Site institucional do DJ Reinaldo, para quem contrata DJ em eventos sociais, corporativos e casas noturnas.
 
-- **Publicação:** Cloudflare Pages (projeto `djreinaldo`), automática a cada push na branch `main`.
-- **Rodar local:** `python -m http.server 8766` e abrir http://127.0.0.1:8766/
+- **Status:** no ar
+- **Endereço:** https://djreinaldo.com.br/
+- **Cliente:** DJ Reinaldo (dono do site); desenvolvimento pela laroca.dev
+
+## Principais funções
+
+- Apresentação, repertório e diferenciais, com contato por WhatsApp.
+- Galeria em grade 3x3 com visor e troca automática, alimentada por um `galeria.json` publicado fora do repositório; sem o arquivo, a seção some.
+- Entradas animadas ao rolar a página e contadores.
+
+## Stack
+
+HTML5, CSS3 e JavaScript puros, sem build e sem dependências.
 
 ## Estrutura
-- `index.html` — todo o conteúdo
-- `css/style.css` — layout, paleta grafite e dourado
-- `js/main.js` — entradas ao rolar, números, galeria e visor
-- Galeria: vem só do `galeria.json` publicado pela Central em `https://arquivos.djreinaldo.com.br/site/galeria.json` (grade 3x3 montada no `js/main.js`; fotos `ocultas` não aparecem). Sem JSON, a seção some.
 
-Desenvolvido por [laroca.dev](https://laroca.dev).
+```
+index.html     conteúdo
+css/style.css  layout e paleta (grafite e dourado)
+js/main.js     animações, galeria e visor
+_headers       cabeçalhos de segurança e cache
+```
+
+## Rodar localmente
+
+```bash
+python -m http.server 8766   # abrir http://127.0.0.1:8766/
+```
+
+## Publicar
+
+Cloudflare Pages, automático a cada push na `main`. Todo push vai ao ar: teste antes.
+
+## Licença
+
+Proprietário — todos os direitos reservados.
+
+## Contato
+
+Desenvolvido pela [laroca.dev](https://laroca.dev) · contato@laroca.dev
