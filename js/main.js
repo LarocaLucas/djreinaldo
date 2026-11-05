@@ -56,7 +56,7 @@
   /* Galeria: só as fotos publicadas pela Central (galeria.json no R2). Grade 3x3; as demais entram na troca e no visor */
   const secao = $('#galeria'), grade = $('.grade'), visor = $('.visor'), visorImg = $('img', visor), contador = $('.visor-n');
   const R2 = 'https://arquivos.djreinaldo.com.br';
-  const LUGARES = 9, TROCA_MIN = 1600, TROCA_VAR = 3000;
+  const LUGARES = 9, TROCA_MIN = 5000, TROCA_VAR = 5000;
   let itens = [];
   /* os 9 lugares nascem vazios (mesma altura de sempre, o link #galeria cai no lugar certo) e recebem as fotos quando o JSON chega */
   const fotos = Array.from({ length: LUGARES }, (_, i) => {
@@ -108,7 +108,7 @@
     const f = e.target.closest('.foto'); if (!f || f.dataset.i === undefined) return;
     origem = f; mostra(+f.dataset.i); visor.showModal();
   });
-  /* troca sozinha: cada lugar da grade tem o seu relógio (1,6 a 4,6 s, sorteado a cada vez), então várias fotos
+  /* troca sozinha: cada lugar da grade tem o seu relógio (5 a 10 s, sorteado a cada vez), então várias fotos
      trocam ao mesmo tempo e em ritmos diferentes; as fotos fora da grade entram em ciclo, sem nunca parar */
   const naTela = () => { const r = grade.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
   let cursor = 0;
@@ -137,7 +137,7 @@
   const comecaTroca = () => {
     if (semMovimento) return;
     cursor = fotos.length;
-    fotos.forEach((f, i) => setTimeout(() => troca(f), 600 + i * 350 + Math.random() * 1500));
+    fotos.forEach(f => setTimeout(() => troca(f), 1500 + Math.random() * TROCA_MIN));
   };
   visor.addEventListener('close', () => origem && origem.focus({ preventScroll: true }));
   $('.visor-x').addEventListener('click', () => visor.close());
