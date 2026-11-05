@@ -81,9 +81,12 @@
     const evs = (j.eventos || []).filter(e => /^[\w.-]+$/.test(e.folder) && e.total > 0).map((e, k) => ({ e, k }))
       .sort((x, y) => data(y.e.folder).localeCompare(data(x.e.folder)) || x.k - y.k);
     for (const { e } of evs) {
+      /* ordem escolhida na Central primeiro; o que falta segue crescente; ocultas nunca aparecem */
       const ocultas = new Set(Array.isArray(e.ocultas) ? e.ocultas : []);
-      for (let n = 1; n <= Math.min(e.total, 500); n++) {
-        if (ocultas.has(n)) continue;
+      const vale = n => Number.isInteger(n) && n >= 1 && n <= e.total && !ocultas.has(n);
+      const nums = [...new Set((Array.isArray(e.ordem) ? e.ordem : []).filter(vale))];
+      for (let n = 1; n <= e.total; n++) if (vale(n) && !nums.includes(n)) nums.push(n);
+      for (const n of nums.slice(0, 500)) {
         const nn = String(n).padStart(2, '0');
         itens.push({ src: `${R2}/${e.folder}/${nn}.jpg`, thumb: e.miniaturas === true ? `${R2}/${e.folder}/mini/${nn}.webp` : `${R2}/${e.folder}/${nn}.jpg` });
       }

@@ -14,6 +14,9 @@
 - v2.4.0 (04/11/2026, galeria só do R2); antes v2.3.0; antes v2.1.0 no ar em https://djreinaldo.com.br/ desde 08/10/2026 (refeito do zero sobre a v1.2.0).
 
 ## Registro
+### 05/11/2026 — Claude Code (ordem das fotos da Central, PR sem merge)
+- `js/main.js`: cada álbum do `galeria.json` segue `ordem: number[]` (gravada pela Central em Editar álbum → Ordem e capa) e depois os números que faltam em ordem crescente, sempre sem as `ocultas`; sem o campo, 1..total como antes. `main.js?v=2.4.1`.
+- Teste: servidor local com JSON simulado (`ordem [9,3,7]`, `ocultas [3]` → grade 09, 07, 01, 02, 04…), console limpo. Changelog/tag ficam para o merge (com o ok do dono; a main publica o site).
 ### 04/11/2026 — Claude Code (galeria só da Central, 3x3, v2.4.0)
 - **Feito (pedido do dono):** removidas as 18 fotos fixas da grade e o `data-fotos`; apagada a pasta `assets/images/galeria/` (26 arquivos, nenhum outro uso conferido com grep; foto do topo e logo ficam). A grade 3x3 nasce com 9 lugares vazios (o link `#galeria` cai no lugar certo) e recebe as fotos do `galeria.json`; `ocultas` respeitadas (nem na grade nem no visor); pasta com sufixo `-N` (álbum substituído na Central) ordena pela data. Troca a cada **2,3 s** (antes 3 s), mesmas condições. Sem JSON ou sem fotos: seção e link do menu escondidos (`[hidden]` com `display: none !important`). Celular: 3 colunas, `gap: 6px`.
 - **Versões:** CSS e JS `?v=2.4.0`.
