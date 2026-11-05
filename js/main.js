@@ -56,7 +56,7 @@
   /* Galeria: só as fotos publicadas pela Central (galeria.json no R2). Grade 3x3; as demais entram na troca e no visor */
   const secao = $('#galeria'), grade = $('.grade'), visor = $('.visor'), visorImg = $('img', visor), contador = $('.visor-n');
   const R2 = 'https://arquivos.djreinaldo.com.br';
-  const LUGARES = 9, TROCA_MS = 2300;
+  const LUGARES = 9, TROCA_MIN = 1600, TROCA_VAR = 3000;
   let itens = [];
   /* os 9 lugares nascem vazios (mesma altura de sempre, o link #galeria cai no lugar certo) e recebem as fotos quando o JSON chega */
   const fotos = Array.from({ length: LUGARES }, (_, i) => {
@@ -94,6 +94,7 @@
     if (!itens.length) return esconde();
     fotos.splice(itens.length).forEach(f => f.remove());
     fotos.forEach((f, i) => { const img = $('img', f); img.src = itens[i].thumb; img.alt = `DJ Reinaldo em evento, foto ${i + 1}`; f.dataset.i = i; });
+    comecaTroca();
   }).catch(esconde);
 
   let atual = 0, origem = null;
@@ -107,21 +108,37 @@
     const f = e.target.closest('.foto'); if (!f || f.dataset.i === undefined) return;
     origem = f; mostra(+f.dataset.i); visor.showModal();
   });
-  /* troca sozinha: a cada 2,3 s uma foto da grade (lugar aleatório) dá lugar a uma ainda não exibida */
+  /* troca sozinha: cada lugar da grade tem o seu relógio (1,6 a 4,6 s, sorteado a cada vez), então várias fotos
+     trocam ao mesmo tempo e em ritmos diferentes; as fotos fora da grade entram em ciclo, sem nunca parar */
   const naTela = () => { const r = grade.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
-  if (!semMovimento) setInterval(() => {
-    if (!naTela() || document.hidden || visor.open || !itens.length) return;
-    const usados = new Set(fotos.map(f => +f.dataset.i));
-    const livres = itens.map((_, i) => i).filter(i => !usados.has(i));
-    if (!livres.length) return;
-    const f = fotos[Math.floor(Math.random() * fotos.length)], k = livres[0], img = $('img', f);
-    const pre = new Image();
-    pre.onload = () => {
-      img.classList.add('troca');
-      setTimeout(() => { img.src = itens[k].thumb; f.dataset.i = k; img.classList.remove('troca'); }, 500);
-    };
-    pre.src = itens[k].thumb;
-  }, TROCA_MS);
+  let cursor = 0;
+  const proxima = () => {
+    const usados = new Set(fotos.flatMap(f => [+f.dataset.i, +f.dataset.vem]));
+    for (let n = 0; n < itens.length; n++) {
+      const k = (cursor + n) % itens.length;
+      if (!usados.has(k)) { cursor = k + 1; return k; }
+    }
+    return -1;
+  };
+  const troca = f => {
+    const k = naTela() && !document.hidden && !visor.open && itens.length > fotos.length ? proxima() : -1;
+    if (k >= 0) {
+      const img = $('img', f), pre = new Image();
+      f.dataset.vem = k;
+      pre.onerror = () => { delete f.dataset.vem; };
+      pre.onload = () => {
+        img.classList.add('troca');
+        setTimeout(() => { img.src = itens[k].thumb; f.dataset.i = k; delete f.dataset.vem; img.classList.remove('troca'); }, 500);
+      };
+      pre.src = itens[k].thumb;
+    }
+    setTimeout(() => troca(f), TROCA_MIN + Math.random() * TROCA_VAR);
+  };
+  const comecaTroca = () => {
+    if (semMovimento) return;
+    cursor = fotos.length;
+    fotos.forEach((f, i) => setTimeout(() => troca(f), 600 + i * 350 + Math.random() * 1500));
+  };
   visor.addEventListener('close', () => origem && origem.focus({ preventScroll: true }));
   $('.visor-x').addEventListener('click', () => visor.close());
   $('.visor-ant').addEventListener('click', () => mostra(atual - 1));
